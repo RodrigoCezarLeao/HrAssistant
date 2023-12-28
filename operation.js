@@ -1,52 +1,4 @@
-var inss2023 = [
-    {
-        range: 1320,
-        percent: 0.075,
-        result: 0
-    },
-    {
-        range: 2571.29,
-        percent: 0.09,
-        result: 0
-    },
-    {
-        range: 3856.94,
-        percent: 0.12,
-        result: 0
-    },
-    {
-        range: 7507.49,
-        percent: 0.14,
-        result: 0
-    },
-];
-var inss2022 = [
-    {
-        range: 1212,
-        percent: 0.075,
-        result: 0
-    },
-    {
-        range: 2427.35,
-        percent: 0.09,
-        result: 0
-    },
-    {
-        range: 3641.03,
-        percent: 0.12,
-        result: 0
-    },
-    {
-        range: 7087.22,
-        percent: 0.14,
-        result: 0
-    },
-];
 
-
-var taxesList = [
-    inss2023
-]
 
 function calculateFGTS(grossSalary){
     let converted = isSalaryValid(grossSalary);
@@ -57,7 +9,7 @@ function calculateFGTS(grossSalary){
 }
 
 
-function calculateInss(grossSalary, taxRange){
+function calculateRangeTax(grossSalary, taxRange){
     let converted = isSalaryValid(grossSalary);
     if (!converted)
         return 0;
@@ -97,4 +49,14 @@ function isSalaryValid(grossSalary){
         return false;
 
     return converted;
+}
+
+
+function calculateINSS(grossSalary, taxesList){
+    return calculateRangeTax(grossSalary, taxesList);
+}
+
+function calculateIRRF(grossSalary, taxesList, inssList){
+    let inss = ArraySum(calculateINSS(grossSalary, inssList));
+    return calculateRangeTax(grossSalary - inss, taxesList);
 }
